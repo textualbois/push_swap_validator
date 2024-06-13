@@ -8,7 +8,7 @@ def generate_shuffled_ints(n):
 	return ' '.join(map(str, numbers))
 
 def call_push_swap(n):
-	exec_location = '../push_swap/push_swap'
+	exec_location = '../dual_git/push_swap'
 	#checker_location = './checker_Mac'
 	shuffled_ints = generate_shuffled_ints(n)
 
@@ -36,10 +36,11 @@ def validate_push_swap():
 		max_operations = 0
 		sum_operations = 0
 
-		for k in range(1, iterations + 1):
+		k = 1
+		while k <= iterations:
 			output = call_push_swap(stack_size[i])
 			if output is not None:
-				sum_operations += output
+				sum_operations = sum_operations + output
 				max_operations = max(max_operations, output)
 				if min_operations != -1:
 					min(min_operations, output)
@@ -47,22 +48,23 @@ def validate_push_swap():
 					min_operations = output
 			else:
 				return
-			
-		print(f"for stack size {stack_size[i]} results are:\n" + 
-				f"min operations observed = {min_operations}\n" + 
-				f"average operations = {sum_operations / k}\n" +
-				f"max operations observed = {max_operations}\n")
-		
+			k = k + 1
+
+		print("for stack size {0} results are:\n".format(stack_size[i]) +
+				"min operations observed = {0}\n".format(min_operations) +
+				"average operations = {0}\n".format(sum_operations / (k - 1)) +
+				"max operations observed = {0}\n".format(max_operations))
+
 		j = 0
 		while j < len(allowed_limits[i]):
 			if max_operations > allowed_limits[i][j]:
-				break 
+				break
 			else:
 				j += 1
 		if j == 5:
-			print(f"you got maximum points for stack size of {stack_size[i]}\n\n")
+			print("you got maximum points for stack size of {0}\n\n".format(stack_size[i]))
 		else:
-			print(f"you get only {j} points.\nfor maximum points you need less than {allowed_limits[i][4]} max moves.\n\n")
+			print("you get only {0} points.\nfor maximum points you need less than {1} max moves.\n\n".format(j, allowed_limits[i][4]))
 
 validate_push_swap()
 
