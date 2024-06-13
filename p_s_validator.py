@@ -42,8 +42,8 @@ def validate_push_swap():
 			if output is not None:
 				sum_operations = sum_operations + output
 				max_operations = max(max_operations, output)
-				if min_operations != -1:
-					min(min_operations, output)
+				if min_operations > -1:
+					min_operations = min(min_operations, output)
 				else:
 					min_operations = output
 			else:
